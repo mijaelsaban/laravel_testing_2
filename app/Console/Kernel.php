@@ -15,8 +15,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        FetchPaypalTransactionsCommand::class,
-        FetchStripeTransactionsCommand::class
     ];
 
     /**
@@ -27,15 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('transactions:fetchStripe')
-            ->hourly()
-            ->timezone('Europe/Vienna')
-            ->emailOutputOnFailure(env('DEVELOPER_EMAIL'));
-
-        $schedule->command('transactions:fetchPaypal')
-            ->hourly()
-            ->timezone('Europe/Vienna')
-            ->emailOutputOnFailure(env('DEVELOPER_EMAIL'));
+        //todo: code here
     }
 
     /**
