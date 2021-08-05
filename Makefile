@@ -39,18 +39,6 @@ prepare_database:
 	@echo ${BLUE}"Prepare Database - OK"${END_BLUE}
 
 
-databases:
-	@echo ${BLUE}"Prepare DATABASES ..."${END_BLUE}
-	docker-compose -f ${DOCKER_DATABASE_PATH}/babydriver/docker-compose.yml stop
-	docker-compose -f ${DOCKER_DATABASE_PATH}/babydriver/docker-compose.yml pull
-	docker-compose -f ${DOCKER_DATABASE_PATH}/babydriver/docker-compose.yml up -d
-
-	docker-compose -f ${DOCKER_DATABASE_PATH}/support/docker-compose.yml stop
-	docker-compose -f ${DOCKER_DATABASE_PATH}/support/docker-compose.yml pull
-	docker-compose -f ${DOCKER_DATABASE_PATH}/support/docker-compose.yml up -d
-	@echo ${GREEN}"Prepare DATABASES DONE ..."${END_BLUE}
-
-
 fix_codestyle:
 	@echo ${BLUE}"Fixing PHP Codestyle to PSR-2..."${END_BLUE}
 	docker-compose exec php-fpm php vendor/squizlabs/php_codesniffer/bin/phpcbf /application/app

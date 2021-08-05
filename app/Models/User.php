@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $active
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read  UserDetail $userDetail
  * @mixin Eloquent
  */
 class User extends Model

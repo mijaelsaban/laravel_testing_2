@@ -20,8 +20,6 @@ class UsersTest extends TestCase
      */
     public function itReturnsUsersWhichAreActiveAndAreAustrians(): void
     {
-        $this->withoutExceptionHandling();
-
         /**
          * Valid data
          */
@@ -41,5 +39,97 @@ class UsersTest extends TestCase
         $response = $this->get('api/users');
 
         $this->assertEquals(7, collect(json_decode($response->getContent()))->count());
+    }
+
+    /**
+     * @test
+     */
+    public function itCannotUpdateUserDetailsWhenDoesntExist()
+    {
+        /**
+         * Invalid data
+         */
+        $user = User::factory()->create();
+
+        $this->putJson('api/users/' . $user->id)
+            ->assertStatus(500);
+
+        /**
+         * Invalid data Validation Exception status 422
+         */
+        $user = User::factory()->active()
+            ->has(UserDetail::factory())
+            ->create();
+
+        $this->putJson('api/users/' . $user->id)
+            ->assertStatus(422);
+    }
+
+
+    /**
+     * @test
+     */
+    public function itCanUpdateUserDetailsWhenExist()
+    {
+        $this->withoutExceptionHandling();
+        /**
+         * Valid data
+         */
+        $user = User::factory()->active()
+            ->has(UserDetail::factory())
+            ->create();
+
+        $response = $this->putJson(
+            'api/users/' . $user->id,
+            [
+                 'citizenship_country_id' => 1,
+                 'first_name' => 'Carlos',
+                 'last_name' => 'Bar',
+                 'phone_number' => 123456,
+            ]
+        )
+            ->assertStatus(200);
+
+        $result = (array)json_decode($response->getContent())->updated->user_detail;
+
+        $this->assertEquals([
+            'citizenship_country_id' => 1,
+            'first_name' => 'Carlos',
+            'last_name' => 'Bar',
+            'phone_number' => 123456,
+            'id' => $user->userDetail->id,
+            'user_id' => $user->id
+        ], $result);
+    }
+
+    /**
+     * @test
+     */
+    public function itCanDeleteUserWhenNoUserDetails()
+    {
+        $this->withoutExceptionHandling();
+        $user = User::factory()->active()
+            ->create();
+
+        $response = $this->deleteJson(
+            'api/users/' . $user->id
+        )
+            ->assertStatus(200);
+    }
+
+
+    /**
+     * @test
+     */
+    public function itCannotDeleteUserHasUserDetails()
+    {
+        $user = User::factory()->active()
+            ->has(UserDetail::factory())
+            ->create();
+
+        $response = $this->deleteJson(
+            'api/users/' . $user->id
+        )
+            ->assertStatus(500);
     }
 }
