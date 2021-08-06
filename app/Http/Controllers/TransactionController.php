@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TransactionCsvServiceInterface;
-use App\Services\TransactionServiceInterface;
-use Illuminate\Contracts\Container\BindingResolutionException;
+use App\Http\Requests\TransactionRequest;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Collection;
+use App\Services\TransactionServiceInterface;
+use App\Services\TransactionCsvServiceInterface;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class TransactionController extends Controller
 {
@@ -23,15 +24,8 @@ class TransactionController extends Controller
     /**
      * @throws BindingResolutionException
      */
-    public function __invoke(Request $request)
+    public function __invoke(TransactionRequest $request): Collection
     {
-        $request->validate([
-            'source' => [
-                'required',
-                Rule::in(['db', 'csv'])
-            ]
-        ]);
-
         $this->getRegistrationStrategy($request);
 
         return $this->transactionService->getAll();

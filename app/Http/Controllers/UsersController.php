@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 
@@ -28,24 +27,15 @@ class UsersController extends Controller
      * @throws ValidationException
      * @throws Exception
      */
-    public function update(User $user, Request $request): JsonResponse
+    public function update(User $user, UserRequest $request): JsonResponse
     {
         if (!$user->userDetail) {
             throw new Exception('No user details');
         }
 
-        /**
-         * Cleaner way using form request
-         */
-        $request->validate([
-            'citizenship_country_id' => 'required|numeric',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|numeric',
-        ]);
-
         $user->userDetail()
-            ->update(request()->all());
+            ->update($request->all());
+
         $user->userDetail->save();
 
         return response()->json([

@@ -63,16 +63,6 @@ class UsersTest extends TestCase
 
         $this->putJson('api/users/' . $user->id)
             ->assertStatus(500);
-
-        /**
-         * Invalid data Validation Exception status 422
-         */
-        $user = User::factory()->active()
-            ->has(UserDetail::factory())
-            ->create();
-
-        $this->putJson('api/users/' . $user->id)
-            ->assertStatus(422);
     }
 
 
