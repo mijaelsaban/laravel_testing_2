@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
+use App\Services\TransactionServiceInterface;
+use App\Services\TransactionDbServiceInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,8 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Builder::macro('search', function ($field, $string) {
-            return $string ? $this->orWhere($field, 'like', '%' . $string . '%') : $this;
-        });
+        $this->app->bind(
+            TransactionServiceInterface::class,
+            TransactionDbServiceInterface::class
+        );
     }
 }

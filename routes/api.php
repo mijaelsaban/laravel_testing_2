@@ -12,4 +12,8 @@
 |
 */
 
+use App\Http\Controllers\TransactionController;
+
 Route::apiResource('users', 'UsersController');
+
+Route::get('transactions', 'TransactionController');
