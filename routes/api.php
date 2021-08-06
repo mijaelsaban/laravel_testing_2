@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +12,4 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::get('/users', [UsersController::class, 'index']);
-Route::put('/users/{user}', [UsersController::class, 'update']);
-Route::delete('/users/{user}', [UsersController::class, 'destroy']);
+Route::apiResource('users', 'UsersController');

@@ -34,6 +34,9 @@ class UsersController extends Controller
             throw new Exception('No user details');
         }
 
+        /**
+         * Cleaner way using form request
+         */
         $request->validate([
             'citizenship_country_id' => 'required|numeric',
             'first_name' => 'required|string',
