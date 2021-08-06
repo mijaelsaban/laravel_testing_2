@@ -34,7 +34,7 @@ class TransactionController extends Controller
 
         $this->getRegistrationStrategy($request);
 
-        dd($this->transactionService->getAll());
+        return $this->transactionService->getAll();
     }
 
     /**
