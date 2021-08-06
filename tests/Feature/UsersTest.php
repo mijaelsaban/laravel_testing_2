@@ -23,7 +23,7 @@ class UsersTest extends TestCase
         /**
          * Valid data
          */
-        User::factory()->active()
+        $expectedUsers =  User::factory()->active()
             ->has(UserDetail::factory()->austrian())
             ->count(7)
             ->create();
@@ -38,7 +38,17 @@ class UsersTest extends TestCase
 
         $response = $this->get('api/users');
 
-        $this->assertEquals(7, collect(json_decode($response->getContent()))->count());
+        $content = collect(json_decode($response->getContent()));
+
+        $this->assertEquals(
+            $expectedUsers->pluck('email'),
+            $content->pluck('email')
+        );
+
+        $this->assertEquals(
+            7,
+            $content->count()
+        );
     }
 
     /**
