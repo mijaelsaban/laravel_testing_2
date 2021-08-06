@@ -2,10 +2,26 @@
 
 namespace App\Services;
 
+use League\Csv\Reader;
+use League\Csv\Exception;
+use Illuminate\Support\Collection;
+
 class TransactionCsvServiceInterface implements TransactionServiceInterface
 {
-    public function getAll()
+    /**
+     * @throws Exception
+     */
+    public function getAll(): Collection
     {
-        
+        $csv = Reader::createFromPath(
+            storage_path('app/transactions.csv'),
+            'r'
+        );
+
+        $csv->setHeaderOffset(0);
+
+        $records = $csv->getRecords();
+
+        return collect($records);
     }
 }
