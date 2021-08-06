@@ -20,8 +20,6 @@ class TransactionCsvServiceInterface implements TransactionServiceInterface
 
         $csv->setHeaderOffset(0);
 
-        $records = $csv->getRecords();
-
-        return collect($records);
+        return collect($csv->getRecords());
     }
 }
