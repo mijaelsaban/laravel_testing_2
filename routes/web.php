@@ -12,4 +12,4 @@
 */
 
 
-
+Route::get('transactions', 'TransactionController');
