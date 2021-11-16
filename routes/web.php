@@ -12,5 +12,8 @@
 */
 
 
+use Illuminate\Mail\Markdown;
 
-
+Route::get('/', function () {
+    return Markdown::parse(file_get_contents(base_path() . '/README.md'));
+});

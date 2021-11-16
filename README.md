@@ -1,7 +1,11 @@
 
+## Readme file.
 ## About
 
-Sample code.
+<br>
+<hr>
+
+This is a sample code.
 
 In order to start there is a docker-compose file with three main services. _Nginx_, _Php-fpm_, and _Mysql_.
 
@@ -11,6 +15,8 @@ instantiated the necessary databases: _the main one and a testing database_.
 In order to start run `make` on the terminal or `docker-compose up -d`.
 
 This will run all the necessary docker containers.
+
+The application will be running in webserver IP address: `177.123.179.1`
 
 <hr>
 
@@ -36,9 +42,13 @@ Please don't forget to prepare the `.env` file and specially set the database co
 
 <hr>
 #### This is only for sample for more worked documentation OpenApi would be used.
+<hr>
+
 Endpoints:
 
-[GET api/users/]() 
+<br>
+
+[GET api/users/](http://177.123.179.1/api/users)
 
 [PUT api/users/{userId}]()
     
@@ -51,6 +61,6 @@ Endpoints:
 
 <hr> 
 
-[GET api/transactions]()
+[GET api/transactions](http://177.123.179.1/api/transactions?source=csv)
     
     query_params: enum[db, csv]
