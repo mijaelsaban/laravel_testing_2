@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\HasJsonResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
 {
+    use HasJsonResponse;
+
     public function rules(): array
     {
         return [

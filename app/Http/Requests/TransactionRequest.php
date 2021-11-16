@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\HasJsonResponse;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class TransactionRequest extends FormRequest
 {
+    use HasJsonResponse;
+
     public function rules(): array
     {
         return [

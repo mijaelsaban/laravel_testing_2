@@ -20,8 +20,6 @@ class UsersTest extends TestCase
      */
     public function itReturnsUsersWhichAreActiveAndAreAustrians(): void
     {
-        $this->withoutExceptionHandling();
-
         /**
          * Valid data
          */
@@ -73,7 +71,6 @@ class UsersTest extends TestCase
      */
     public function itCanUpdateUserDetailsWhenExist()
     {
-        $this->withoutExceptionHandling();
         /**
          * Valid data
          */
@@ -109,7 +106,6 @@ class UsersTest extends TestCase
      */
     public function itCanDeleteUserWhenNoUserDetails()
     {
-        $this->withoutExceptionHandling();
         $user = User::factory()->active()
             ->create();
 
