@@ -24,7 +24,7 @@ After that you need to _prepare/seed_ the database you can run
 
 `mysql -u root -p -h 177.123.179.3 bitpanda_database < docker/mysql/transactions.sql`
 
-#Testing
+##Testing
 
 provide a .env.testing
 with a testing database _only_ with the database schema.
@@ -42,7 +42,7 @@ Do not forget to prepare the `.env` and `.env.testing` file and specially set th
 #### This is only for sample for more worked documentation [OpenApi](https://swagger.io/specification/) would be used.
 <hr>
 
-Endpoints:
+##Endpoints:
 
 
 [GET api/users/](http://177.123.179.1/api/users)
