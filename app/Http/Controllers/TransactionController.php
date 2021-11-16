@@ -34,11 +34,16 @@ class TransactionController extends Controller
     /**
      * @param Request $request
      * @throws BindingResolutionException
+     * By default, TransactionServiceInterface is using TransactionDbServiceInterface.
+     * Check AppServiceProvider.
      */
     public function getRegistrationStrategy(Request $request): void
     {
         if ($request->get('source') === 'csv') {
-            app()->bind(TransactionServiceInterface::class, TransactionCsvServiceInterface::class);
+            app()->bind(
+                TransactionServiceInterface::class,
+                TransactionCsvServiceInterface::class
+            );
             $this->transactionService = app()->make(TransactionServiceInterface::class);
         }
     }

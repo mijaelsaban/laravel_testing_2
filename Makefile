@@ -3,6 +3,8 @@ BLUE="\033[1;34m"
 END_BLUE="\033[0m"
 GREEN="\033[1;32m"
 END_GREEN="\033[0m"
+MYSQL_USER=root
+MYSQL_PASSWORD=1234abcD
 
 include .env
 
@@ -22,11 +24,6 @@ prepare_app_dev:
 	docker-compose exec php-fpm composer install
 	@echo ${BLUE}"Prepare App - OK"${END_BLUE}
 
-prepare_app:
-	@echo ${BLUE}"Prepare App..."${END_BLUE}
-	docker-compose exec php-fpm composer install
-	@echo ${BLUE}"Prepare App - OK"${END_BLUE}
-
 prepare_app_conf:
 	@echo "${BLUE}Prepare App Configuration..."${END_BLUE}
 	cp .env.example .env
@@ -37,7 +34,6 @@ prepare_database:
 	@echo ${BLUE}"Prepare Database..."${END_BLUE}
 	docker-compose exec php-fpm php artisan migrate:fresh --seed
 	@echo ${BLUE}"Prepare Database - OK"${END_BLUE}
-
 
 fix_codestyle:
 	@echo ${BLUE}"Fixing PHP Codestyle to PSR-2..."${END_BLUE}
@@ -84,7 +80,7 @@ stop:
 	docker-compose -f ${DOCKER_DATABASE_PATH}/support/docker-compose.yml stop
 	@echo ${GREEN}" "${END_GREEN}
 	@echo ${GREEN}"====================================="${END_GREEN}
-	@echo ${GREEN}"=     bitpanda is stopped. Bye!    ="${END_GREEN}
+	@echo ${GREEN}"=     The project is stopped. Bye!    ="${END_GREEN}
 	@echo ${GREEN}"====================================="${END_GREEN}
 	@echo ${GREEN}" "${END_GREEN}
 	@echo ${BLUE}"Stopped!"${END_BLUE}
@@ -101,16 +97,9 @@ ssl_renew:
 	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout docker/nginx/ssl/nginx.key -out docker/nginx/ssl/nginx.crt -subj "/C=AT/ST=AT/L=Vienna/O=Bambinifashion/OU=IT/CN=bitpanda.bambinifashion.local"
 	@echo ${BLUE}"Renew your certificates - OK!"${END_BLUE}
 
-#add_certificate_authority:
-#	@echo ${BLUE}"Installing CA..."${END_BLUE}
-#	cp ${CHECKOUT_PROJECT_PATH}/docker/nginx/ssl/nginx.crt ./docker/secure-nginx.crt
-#	docker-compose exec php-fpm cp ./docker/secure-nginx.crt /usr/local/share/ca-certificates
-#	docker-compose exec php-fpm update-ca-certificates
-#	@echo ${BLUE}"Installing CA - done"${END_BLUE}
-
 ready:
 	@echo ${GREEN}" "${END_GREEN}
 	@echo ${GREEN}"====================================="${END_GREEN}
-	@echo ${GREEN}"=   Bitpanda is ready. Enjoy!      ="${END_GREEN}
+	@echo ${GREEN}"=   The project is ready. Enjoy!      ="${END_GREEN}
 	@echo ${GREEN}"====================================="${END_GREEN}
 	@echo ${GREEN}" "${END_GREEN}

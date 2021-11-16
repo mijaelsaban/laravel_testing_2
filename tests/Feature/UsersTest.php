@@ -20,6 +20,8 @@ class UsersTest extends TestCase
      */
     public function itReturnsUsersWhichAreActiveAndAreAustrians(): void
     {
+        $this->withoutExceptionHandling();
+
         /**
          * Valid data
          */
@@ -62,7 +64,7 @@ class UsersTest extends TestCase
         $user = User::factory()->create();
 
         $this->putJson('api/users/' . $user->id)
-            ->assertStatus(500);
+            ->assertStatus(422);
     }
 
 

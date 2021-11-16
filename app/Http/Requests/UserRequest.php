@@ -9,14 +9,14 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'citizenship_country_id' => 'nullable|numeric',
-            'first_name' => 'nullable|string',
-            'last_name' => 'nullable|string',
-            'phone_number' => 'nullable|numeric',
+            'citizenship_country_id' => 'required|numeric',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'phone_number' => 'required|numeric',
         ];
     }
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }

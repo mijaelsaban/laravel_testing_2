@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User;
 use Exception;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Collection;
+use App\Http\Requests\UserRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -15,11 +15,9 @@ use Illuminate\Validation\ValidationException;
  */
 class UsersController extends Controller
 {
-    public function index(): Collection
+    public function index(UserRepository $userRepository)
     {
-        return User::active()
-            ->isAustrian()
-            ->get();
+        return $userRepository->getActiveAustrians();
     }
 
 
@@ -27,20 +25,17 @@ class UsersController extends Controller
      * @throws ValidationException
      * @throws Exception
      */
-    public function update(User $user, UserRequest $request): JsonResponse
-    {
-        if (!$user->userDetail) {
-            throw new Exception('No user details');
-        }
+    public function update(
+        User $user,
+        UserRequest $request,
+        UserRepository $userRepository
+    ): JsonResponse {
 
-        $user->userDetail()
-            ->update($request->all());
-
-        $user->userDetail->save();
+        $userRepository->updateUserDetails($user, $request->validated());
 
         return response()->json([
             'message' => 'User updated successfully.',
-            'previous' => $user,
+            'previous' => $user->userDetail->getOriginal(),
             'updated' => $user->refresh()
         ]);
     }
@@ -49,16 +44,12 @@ class UsersController extends Controller
     /**
      * @throws Exception
      */
-    public function destroy(User $user): JsonResponse
-    {
-        if ($user->userDetail) {
-            throw new Exception(sprintf(
-                'The user id %s has details. It cannot be deleted',
-                $user->id
-            ));
-        }
+    public function destroy(
+        User $user,
+        UserRepository $userRepository
+    ): JsonResponse {
+        $userRepository->delete($user);
 
-        $user->delete();
 
         return response()->json([
             'message' => 'The user was deleted successfully',
