@@ -1,8 +1,6 @@
 
-## Readme file.
+## Readme file
 ## About
-
-<br>
 <hr>
 
 This is a sample code.
@@ -20,33 +18,32 @@ The application will be running in webserver IP address: `177.123.179.1`
 
 <hr>
 
-After that is important to _prepare/seed_ the database you can run
+After that you need to _prepare/seed_ the database you can run
 
 `mysql -u root -p -h 177.123.179.3 bitpanda_database < docker/mysql/database_dump.sql`
 
 `mysql -u root -p -h 177.123.179.3 bitpanda_database < docker/mysql/transactions.sql`
 
-Testing database
+#Testing
 
 provide a .env.testing
-with a testing database _only_ with the database schema
+with a testing database _only_ with the database schema.
 
-To run tests in php storm stop the containers `docker-compose stop` and then go to settings>test frameworks and set the CLI INTERPRETER to php-fpm service.
+To run tests in case of using php storm stop the containers `docker-compose stop` and then go to settings>test frameworks and set the CLI INTERPRETER to php-fpm service.
 
-Then set the lifecycle to connect to existing container _(docker-compose exec)_
-
-<hr>
-
-
-Please don't forget to prepare the `.env` file and specially set the database connection.
+Then set the lifecycle to connect to existing container _(docker-compose exec)_.
 
 <hr>
-#### This is only for sample for more worked documentation OpenApi would be used.
+
+
+Do not forget to prepare the `.env` and `.env.testing` file and specially set the database connection.
+
+<hr>
+#### This is only for sample for more worked documentation [OpenApi](https://swagger.io/specification/) would be used.
 <hr>
 
 Endpoints:
 
-<br>
 
 [GET api/users/](http://177.123.179.1/api/users)
 
