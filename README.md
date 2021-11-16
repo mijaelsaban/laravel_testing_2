@@ -8,11 +8,13 @@ In order to start there is a docker-compose file with three main services. _Ngin
 The Mysql service comes with a root user and password and an init file where is 
 instantiated the necessary databases: _the main one and a testing database_.
 
-In order to star run `make` on the terminal.
+In order to start run `make` on the terminal or `docker-compose up -d`.
 
-This will run the docker-compose, migrate, composer install.
+This will run all the necessary docker containers.
 
-After that is important to seed the database you can run
+<hr>
+
+After that is important to _prepare/seed_ the database you can run
 
 `mysql -u root -p -h 177.123.179.3 bitpanda_database < docker/mysql/database_dump.sql`
 
@@ -23,10 +25,13 @@ Testing database
 provide a .env.testing
 with a testing database _only_ with the database schema
 
+<hr>
+
 
 Please don't forget to prepare the `.env` file and specially set the database connection.
 
-####I would use OpenApi.
+<hr>
+#### This is only for sample for more worked documentation OpenApi would be used.
 Endpoints:
 
 [GET api/users/]() 
@@ -40,6 +45,7 @@ Endpoints:
 
 [DELETE api/users/{userId}]()
 
+<hr> 
 
 [GET api/transactions]()
     
