@@ -25,6 +25,10 @@ Testing database
 provide a .env.testing
 with a testing database _only_ with the database schema
 
+To run tests in php storm stop the containers `docker-compose stop` and then go to settings>test frameworks and set the CLI INTERPRETER to php-fpm service.
+
+Then set the lifecycle to connect to existing container _(docker-compose exec)_
+
 <hr>
 
 
