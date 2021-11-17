@@ -10,11 +10,11 @@ In order to start there is a docker-compose file with three main services. _Ngin
 The Mysql service comes with a root user and password and an init file where is 
 instantiated the necessary databases: _the main one and a testing database_.
 
-In order to start run `make` on the terminal or `docker-compose up -d`.
+You can start by running `make` on the terminal or `docker-compose up -d`.
 
 This will run all the necessary docker containers.
 
-The application will be running in webserver IP address: `177.123.179.1`
+The application will be served on IP address: `177.123.179.1`
 
 <hr>
 
@@ -31,7 +31,7 @@ with a testing database _only_ with the database schema.
 
 To run tests in case of using php storm stop the containers `docker-compose stop` and then go to settings>test frameworks and set the CLI INTERPRETER to php-fpm service.
 
-Then set the lifecycle to connect to existing container _(docker-compose exec)_.
+Then set the lifecycle to connect to existing container _(docker-compose exec)_. and the restart the container.
 
 <hr>
 
@@ -39,7 +39,7 @@ Then set the lifecycle to connect to existing container _(docker-compose exec)_.
 Do not forget to prepare the `.env` and `.env.testing` file and specially set the database connection.
 
 <hr>
-#### This is only for sample for more worked documentation [OpenApi](https://swagger.io/specification/) would be used.
+#### This is only for sample for more worked documentation [OpenApi](https://swagger.io/specification/) would be recommended.
 <hr>
 
 ##Endpoints:
